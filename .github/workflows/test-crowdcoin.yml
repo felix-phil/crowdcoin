@@ -11,25 +11,13 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - uses: actions/checkout@v2
     - env:
         ETH_ACCOUNT_PHRASE: ${{ secrets.ETH_ACCOUNT_PHRASE }}
         RINKEBY_DEPLOY_NETWORK: ${{ secrets.RINKEBY_DEPLOY_NETWORK }}
         NEXT_PUBLIC_RINKEBY_DEPLOY_NETWORK: ${{ secrets.NEXT_PUBLIC_RINKEBY_DEPLOY_NETWORK }}
-        
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+    - run: yarn install
     - run: yarn run build --if-present
     - run: yarn test
