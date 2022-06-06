@@ -8,7 +8,7 @@ const Header = () => {
     <Menu style={{ marginTop: "1rem" }}>
       <Link href="/">
         <a className={`item ${router.pathname === "/" && "active"}`}>
-          CrowdCoin
+          CrowdCoins
         </a>
       </Link>
       <Menu.Menu position="right">
