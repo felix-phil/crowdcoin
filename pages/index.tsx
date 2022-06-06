@@ -1,4 +1,4 @@
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage } from "next";
 import React from "react";
 import { Button, Card, Grid, Label } from "semantic-ui-react";
 import Link from "next/link";
@@ -49,15 +49,13 @@ const IndexPage: NextPage<Props> = ({ campaigns }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+IndexPage.getInitialProps = async () => {
   const campaigns: string[] = await factory.methods
     .getDeployedCampaigns()
     .call();
 
   return {
-    props: {
-      campaigns: campaigns,
-    },
+    campaigns: campaigns,
   };
 };
 

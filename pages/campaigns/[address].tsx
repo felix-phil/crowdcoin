@@ -1,5 +1,5 @@
 import React from "react";
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage } from "next";
 import Campaign from "../../ethereum/campaign";
 import { Button, Card, Grid, Label } from "semantic-ui-react";
 import ContributeForm from "../../components/ContributeForm";
@@ -93,19 +93,17 @@ const CampaignPage: NextPage<Props> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+CampaignPage.getInitialProps = async (context) => {
   const address = context.query.address as string;
   const campaign = Campaign(address);
 
   const summary = await campaign.methods.getSummary().call();
   return {
-    props: {
-      minimumContribution: summary[0],
-      balance: summary[1],
-      requestsCount: summary[2],
-      approversCount: summary[3],
-      manager: summary[4],
-    },
+    minimumContribution: summary[0],
+    balance: summary[1],
+    requestsCount: summary[2],
+    approversCount: summary[3],
+    manager: summary[4],
   };
 };
 
