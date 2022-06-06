@@ -49,15 +49,13 @@ const IndexPage: NextPage<Props> = ({ campaigns }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+IndexPage.getInitialProps = async () => {
   const campaigns: string[] = await factory.methods
     .getDeployedCampaigns()
     .call();
 
   return {
-    props: {
-      campaigns: campaigns,
-    },
+    campaigns: campaigns,
   };
 };
 
