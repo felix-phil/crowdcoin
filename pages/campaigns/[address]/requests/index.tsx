@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import React from "react";
 import { Button, Grid, Label, Table } from "semantic-ui-react";
 import Link from "next/link";
@@ -73,7 +73,7 @@ const RequestsPage: NextPage<Props> = (props) => {
   );
 };
 
-RequestsPage.getInitialProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const address = context.query.address as string;
   const campaign = Campaign(address);
 
@@ -93,10 +93,12 @@ RequestsPage.getInitialProps = async (context) => {
   );
 
   return {
-    address: address,
-    requests: requests,
-    requestsCount: parseInt(requestsCount),
-    approversCount: parseInt(approversCount),
+    props: {
+      address: address,
+      requests: requests,
+      requestsCount: parseInt(requestsCount),
+      approversCount: parseInt(approversCount),
+    },
   };
 };
 
