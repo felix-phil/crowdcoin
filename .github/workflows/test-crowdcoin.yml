@@ -3,15 +3,14 @@ on:
   push:
     branches: [ "master" ]
   pull_request:
-    paths: /**
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - env:
+      - uses: actions/checkout@v2
+      - run: yarn install && yarn test
+        env:
           ETH_ACCOUNT_PHRASE: ${{ secrets.ETH_ACCOUNT_PHRASE }}
           RINKEBY_DEPLOY_NETWORK: ${{ secrets.RINKEBY_DEPLOY_NETWORK }}
           NEXT_PUBLIC_RINKEBY_DEPLOY_NETWORK: ${{ secrets.NEXT_PUBLIC_RINKEBY_DEPLOY_NETWORK }}
-      - uses: actions/checkout@v2
-      - run: yarn install && yarn test
